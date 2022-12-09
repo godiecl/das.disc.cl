@@ -1,19 +1,19 @@
-title: This is my title
-description_html: <p>this is my <strong>description</strong>.
+title: "World Earthquakes Information Database"
+description_html: <p>Earthquakes <strong>Seismic Moment Magnitude Scale</strong> (SMMS).
 databases:
   earthquakes:
     source: "Ranjit Das"
     tables:
-      earquakes:
+      earthquakes:
         description_html: Earthquakes Database
     queries:
       earthquakes:
         params:
-        - xmin
-        - xmax
-        - ymin
-        - ymax
-        sql: select * from earthquakes where earthquakes.rowid in (select pkid from idx_earthquakes_point where xmin > :xmin and xmax < :xmax and ymin < :ymin and ymax > :ymax);
+        - latitude_min
+        - latitude_max
+        - longitude_min
+        - longitude_max
+        sql: select year, month, day, hour, minute, second, latitude, longitude, depth, mw_reported, seismic_moment, strike, dip, rake, mw, mwg from earthquakes where latitude >= :latitude_min and latitude <= :latitude_max and longitude >= :longitude_min and longitude <= :longitude_max;
         hide_sql: true
-        title: Search for Earthquakes
+        title: Filter the earthquakes by position
         description_html: <p>Search for Earthquakes in <strong>Das</strong> scale.
