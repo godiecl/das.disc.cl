@@ -1,0 +1,17 @@
+---
+services:
+  datasette:
+    image: datasetteproject/datasette:latest
+    container_name: disc-das
+    environment:
+      - PUID=33
+      - PGID=33
+    volumes:
+      - './earthquakes.db:/mnt/earthquakes.db:ro'
+      - './earthquakes.yml:/mnt/earthquakes.yml:ro'
+    ports:
+      - 8001:8001
+    command: >
+      bash -c "datasette install datasette-cluster-map
+      && datasette serve -i /mnt/earthquakes.db -m /mnt/earthquakes.yml -p 8001 -h 0.0.0.0 --nolock --load-extension=spatialite --setting sql_time_limit_ms 2500"
+    restart: unless-stopped

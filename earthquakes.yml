@@ -1,0 +1,19 @@
+title: This is my title
+description_html: <p>this is my <strong>description</strong>.
+databases:
+  earthquakes:
+    source: "Ranjit Das"
+    tables:
+      earquakes:
+        description_html: Earthquakes Database
+    queries:
+      earthquakes:
+        params:
+        - xmin
+        - xmax
+        - ymin
+        - ymax
+        sql: select * from earthquakes where earthquakes.rowid in (select pkid from idx_earthquakes_point where xmin > :xmin and xmax < :xmax and ymin < :ymin and ymax > :ymax);
+        hide_sql: true
+        title: Search for Earthquakes
+        description_html: <p>Search for Earthquakes in <strong>Das</strong> scale.
